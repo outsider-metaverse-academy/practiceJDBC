@@ -48,4 +48,26 @@ public class CategoryDAO {
         }
         return result;
     }
+
+    public int updateCategory(Connection con , CategoryDTO category) {
+        PreparedStatement ps = null;
+        int result = 0;
+        String query = "UPDATE TBL_CATEGORY SET CATEGORY_NAME = ?, REF_CATEGORY_CODE = ? " +
+                "WHERE CATEGORY_CODE = ?";
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, category.getCategoryName());
+            ps.setInt(2, category.getRefCategoryCode());
+            ps.setInt(3, category.getCategoryCode());
+            result = ps.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(ps);
+
+        }
+        return result;
+    }
 }
