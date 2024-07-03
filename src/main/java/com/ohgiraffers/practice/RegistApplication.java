@@ -19,8 +19,8 @@ public class RegistApplication {
         categoryDTO.setRefCategoryCode(refCategoryCode);
         categoryDTO.setCategoryCode(categoryCode);
         categoryDTO.setCategoryName(categoryName);
-        CategoryRegistService menuRegistService = new CategoryRegistService();
-        if (menuRegistService.registCategory(categoryDTO)) {
+        CategoryRegistService categoryRegistService = new CategoryRegistService();
+        if (categoryRegistService.registCategory(categoryDTO)) {
             System.out.println("카테고리 등록에 성공하셨습니다.");
 
         } else {

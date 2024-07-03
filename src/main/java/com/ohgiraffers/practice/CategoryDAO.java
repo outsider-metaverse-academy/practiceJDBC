@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import static com.ohgiraffers.common.Template.close;
 
 public class CategoryDAO {
-    public int deleteMenu(Connection con, Long id) {
+    public static int deleteMenu(Connection con, int id) {
         PreparedStatement ps = null;
         int result = 0;
         String query = "DELETE FROM category WHERE id = ?";
