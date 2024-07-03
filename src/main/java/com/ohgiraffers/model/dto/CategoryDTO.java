@@ -16,7 +16,7 @@ public class CategoryDTO {
     this.refCategoryCode = refCategoryCode;
   }
 
-  public long getCategoryCode() {
+  public int getCategoryCode() {
     return categoryCode;
   }
 
