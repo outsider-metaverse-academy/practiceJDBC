@@ -4,7 +4,10 @@ import com.ohgiraffers.model.dto.CategoryDTO;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.ohgiraffers.common.Template.close;
 
@@ -69,5 +72,36 @@ public class CategoryDAO {
 
         }
         return result;
+    }
+
+    public List<CategoryDTO> selectAllCategory(Connection con) {
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        List<CategoryDTO> categories = null;
+
+        try {
+            String query = "SELECT CATEGORY_CODE, CATEGORY_NAME, REF_CATEGORY_CODE FROM TBL_CATEGORY";
+            pstmt = con.prepareStatement(query);
+
+            rset = pstmt.executeQuery();
+
+            categories = new ArrayList<CategoryDTO>();
+
+            while(rset.next()){
+                CategoryDTO category = new CategoryDTO();
+                category.setCategoryCode(rset.getInt("CATEGORY_CODE"));
+                category.setCategoryName(rset.getString("CATEGORY_NAME"));
+                category.setRefCategoryCode(rset.getInt("REF_CATEGORY_CODE"));
+                categories.add(category);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+
+        return categories;
     }
 }
